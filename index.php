@@ -92,25 +92,45 @@
 							$file = "helyek.txt";
 							$contents = file_get_contents($file);
 							$lines = explode("\n", $contents);							
+							$dates = [];
+							$numbers = [];
 								
 							foreach($lines as $word) {
 								$data = explode(";", $word);
 								$count = 0;
+								
 								foreach($lines as $word2){
 									$data2 = explode(";", $word2);
 									if(date("d/m/Y", (int)($data2[2])/1000) == date("d/m/Y", (int)($data[2])/1000)){
+										//echo date("d/m/Y", (int)($data2[2])/1000)." és ".date("d/m/Y", (int)($data[2])/1000)."\n";
 										$count = $count+1;
+										if(!in_array(date("d/m/Y", (int)($data2[2])/1000), $dates)){
+											array_push($dates, date("d/m/Y", (int)($data2[2])/1000));
+										}
 									}
-								}
-								echo "{ x: new Date(".$data[0]."), y: ".$count." },";
+								}	
+								array_push($numbers, $count);
 							}
-						?>
+							
+							for ($x = 0; $x < count($dates); $x++) {		
+								$dateNew = DateTime::createFromFormat('d-m-Y', $dates[$x]);															
+								$bla = explode('/', $dates[$x]);
+								$k = $bla[2].", ".$bla[1].", ".$bla[0];
+								echo "{ x: new Date(".$k."), y: ".$numbers[$x]." },";
+							}
+							
+							// k
+							
+						?>	
 					]
 				}]
 			});
 			chart.render();
 
 			}
+			
+			
+			
 		</script>
 		<div id="chartContainer" style="height: 300px; width: 100%;"></div>		
 </body>
