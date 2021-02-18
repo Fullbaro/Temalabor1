@@ -54,6 +54,8 @@
 				
 			foreach($lines as $word) {
 				$adatok = explode(";", $word);
+				//echo $word;
+				//echo $adatok[0]." és ".$adatok[1]."\n";
 				// Itt egyben létrehoz egy markert amit felrak a térképre
 				echo "map.addObject(new H.map.Marker({ lat: ".$adatok[0].", lng: ".$adatok[1]." }, { icon: icon }));\n";
 			}
