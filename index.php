@@ -17,7 +17,7 @@
 
 <body>
     <!--In the div HERE Map will be rendered-->
-    <div style="width: 100vw;height: 400px;" id="mapContainer"></div>
+    <div style="width: 100%;height: 400px; border: 2px solid black;" id="mapContainer"></div>
     <script>
         //Step 1: initialize communication with the platform
         var platform = new H.service.Platform({
