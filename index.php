@@ -55,11 +55,11 @@
 			$lines = explode("\n", $contents);
 				
 			foreach($lines as $word) {
-				$adatok = explode(";", $word);
+				$data = explode(";", $word);
 				//echo $word;
-				//echo $adatok[0]." és ".$adatok[1]."\n";
+				//echo $data[0]." és ".$data[1]."\n";
 				// Itt egyben létrehoz egy markert amit felrak a térképre
-				echo "map.addObject(new H.map.Marker({ lat: ".$adatok[0].", lng: ".$adatok[1]." }, { icon: icon }));\n";
+				echo "map.addObject(new H.map.Marker({ lat: ".$data[0].", lng: ".$data[1]." }, { icon: icon }));\n";
 			}
 		?>
 
@@ -71,13 +71,14 @@
 			var chart = new CanvasJS.Chart("chartContainer", {
 				animationEnabled: true,
 				title:{
-					text: "Website Traffic"
+					text: "Egyes napokon hány helyen voltam"
 				},
 				axisX:{
+					title:"Melyik napon",
 					valueFormatString: "DD MMM"
 				},
 				axisY: {
-					title: "Number of Visitors",
+					title: "Helyek",
 					scaleBreaks: {
 						autoCalculate: true
 					}
@@ -88,11 +89,22 @@
 					color: "#F08080",
 					dataPoints: [
 						<?php
-							
+							$file = "helyek.txt";
+							$contents = file_get_contents($file);
+							$lines = explode("\n", $contents);							
+								
+							foreach($lines as $word) {
+								$data = explode(";", $word);
+								$count = 0;
+								foreach($lines as $word2){
+									$data2 = explode(";", $word2);
+									if(date("d/m/Y", (int)($data2[2])/1000) == date("d/m/Y", (int)($data[2])/1000)){
+										$count = $count+1;
+									}
+								}
+								echo "{ x: new Date(".$data[0]."), y: ".$count." },";
+							}
 						?>
-						{ x: new Date(1584473820704), y: 610 },
-						{ x: new Date(2017, 0, 2), y: 680 },
-						{ x: new Date(2017, 0, 3), y: 690 }
 					]
 				}]
 			});
