@@ -101,21 +101,23 @@
 								
 								foreach($lines as $word2){
 									$data2 = explode(";", $word2);
-									if(date("d/m/Y", (int)($data2[2])/1000) == date("d/m/Y", (int)($data[2])/1000)){
+									if(date("Y/m/d", (int)($data2[2])/1000) == date("Y/m/d", (int)($data[2])/1000)){
 										//echo date("d/m/Y", (int)($data2[2])/1000)." és ".date("d/m/Y", (int)($data[2])/1000)."\n";
 										$count = $count+1;
-										if(!in_array(date("d/m/Y", (int)($data2[2])/1000), $dates)){
-											array_push($dates, date("d/m/Y", (int)($data2[2])/1000));
+										if(!in_array(date("Y/m/d", (int)($data2[2])/1000), $dates)){
+											array_push($dates, date("Y/m/d", (int)($data2[2])/1000));
 										}
 									}
 								}	
 								array_push($numbers, $count);
 							}
 							
+						
+							sort($dates);
 							for ($x = 0; $x < count($dates); $x++) {		
-								$dateNew = DateTime::createFromFormat('d-m-Y', $dates[$x]);															
+								$dateNew = DateTime::createFromFormat('Y-m-d', $dates[$x]);															
 								$bla = explode('/', $dates[$x]);
-								$k = $bla[2].", ".$bla[1].", ".$bla[0];
+								$k = $bla[0].", ".$bla[1].", ".$bla[2];
 								echo "{ x: new Date(".$k."), y: ".$numbers[$x]." },";
 							}
 							
