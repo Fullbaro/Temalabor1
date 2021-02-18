@@ -11,7 +11,9 @@
     <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
     <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
     <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <!-- HERE JavaScript Libs & Style Sheets end-->
+	
     <title>Bálint Dániel HL6ENQ</title>
 </head>
 
@@ -63,6 +65,42 @@
 
     </script>
 	
+	<script>
+		window.onload = function () {
+
+			var chart = new CanvasJS.Chart("chartContainer", {
+				animationEnabled: true,
+				title:{
+					text: "Website Traffic"
+				},
+				axisX:{
+					valueFormatString: "DD MMM"
+				},
+				axisY: {
+					title: "Number of Visitors",
+					scaleBreaks: {
+						autoCalculate: true
+					}
+				},
+				data: [{
+					type: "line",
+					xValueFormatString: "DD MMM",
+					color: "#F08080",
+					dataPoints: [
+						<?php
+							
+						?>
+						{ x: new Date(1584473820704), y: 610 },
+						{ x: new Date(2017, 0, 2), y: 680 },
+						{ x: new Date(2017, 0, 3), y: 690 }
+					]
+				}]
+			});
+			chart.render();
+
+			}
+		</script>
+		<div id="chartContainer" style="height: 300px; width: 100%;"></div>		
 </body>
 
 </html>
