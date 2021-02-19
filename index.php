@@ -47,19 +47,20 @@
 		
 
         // Ikon definiálása
-        var icon = new H.map.Icon('https://cdn3.iconfinder.com/data/icons/tourism/eiffel200.png');
+        var icon = new H.map.Icon('pin.png');
 
 		<?php
 			$file = "helyek.txt";
 			$contents = file_get_contents($file);
 			$lines = explode("\n", $contents);
 				
+				
 			foreach($lines as $word) {
 				$data = explode(";", $word);
 				//echo $word;
 				//echo $data[0]." és ".$data[1]."\n";
 				// Itt egyben létrehoz egy markert amit felrak a térképre
-				echo "map.addObject(new H.map.Marker({ lat: ".$data[0].", lng: ".$data[1]." }, { icon: icon }));\n";
+				echo "map.addObject(new H.map.Marker({ lat: ".$data[0].", lng: ".$data[1]." }, { icon: icon }));\n";				
 			}
 		?>
 
@@ -118,7 +119,7 @@
 								$dateNew = DateTime::createFromFormat('Y-m-d', $dates[$x]);															
 								$bla = explode('/', $dates[$x]);
 								$k = $bla[0].", ".$bla[1].", ".$bla[2];
-								echo "{ x: new Date(".$k."), y: ".$numbers[$x]." },";
+								echo "{ x: new Date(".$k."), y: ".$numbers[$x]." },";								
 							}
 							
 							// k
